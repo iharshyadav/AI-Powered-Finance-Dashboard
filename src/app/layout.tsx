@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://proton-finance.vercel.app"),
+  metadataBase: new URL("https://bright-money-lime.vercel.app"),
   title: {
     default: "Proton Finance — Wealth Curator",
     template: "%s · Proton Finance",
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-// apply the saved theme class before paint so there's no flash of the wrong theme
 const themeScript = `
   (function(){
     try {
