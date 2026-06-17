@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 declare global {
   interface Window {
@@ -11,27 +11,7 @@ declare global {
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
-let initialized = false;
-function ensureGa() {
-  if (initialized || typeof window === "undefined" || !GA_MEASUREMENT_ID) return;
-  initialized = true;
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
-  };
-  window.gtag("js", new Date());
-  window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
-}
-
 export function useAnalytics() {
-  useEffect(() => {
-    ensureGa();
-  }, []);
-
   const track = useCallback((event: string, params: Record<string, unknown> = {}) => {
     if (typeof window === "undefined") return;
     if (window.gtag && GA_MEASUREMENT_ID) {
